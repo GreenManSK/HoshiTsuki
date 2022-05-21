@@ -1,0 +1,5 @@
+<p>
+  <ng-container *ngIf="!lastEdit">Never uploaded</ng-container>
+  <ng-container *ngIf="lastEdit">Last upload: {{lastEdit | date: 'longDate'}}</ng-container>
+</p>
+<input id="sheet" type="file" (change)="uploadSheet($event)" />
