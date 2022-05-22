@@ -9,6 +9,7 @@ import { ChartDataBag } from '../types/ChartDataBag';
 import { CryptoPriceService } from './crypto-price.service';
 import { HistoryRecord } from './aapha-vantage-price.service';
 import { StockPriceService } from './stock-price.service';
+import { CurrencyService } from './currency.service';
 
 type StockData = { investments: Stock[], dividends: Dividend[] };
 type WorkStockData = { investments: WorkStock[], dividends: Dividend[] };
@@ -26,7 +27,8 @@ export class DataService {
   constructor(
     private localStorageService: LocalStorageService,
     private cryptoPriceService: CryptoPriceService,
-    private stockPriceService: StockPriceService
+    private stockPriceService: StockPriceService,
+    private currencyService: CurrencyService
   ) {
   }
 
@@ -75,6 +77,8 @@ export class DataService {
 
   public getCryptoChartDataBags( start: Date, end: Date ) {
     const {investments} = this.getCrypto();
+    const eurExchange = this.currencyService.getRate('eur');
+    investments.forEach(i => i.buyPrice *= eurExchange);
     return this.getDataBags(investments, start, end, ( symbol: string ) => this.cryptoPriceService.getPrices(symbol));
   }
 

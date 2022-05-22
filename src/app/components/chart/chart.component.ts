@@ -77,14 +77,25 @@ export class ChartComponent implements OnInit {
     }
 
     if (this.showSum && this._data.size > 1) {
+      let last: any;
+      let hadAll = false;
       data.push({
         name: 'Total',
         series: Array.from(sumMap.keys())
-          .filter(key => (sumMap.get(key) ?? [0,0])[0] === data.length)
-          .map(key => ({
-          name: key,
-          value: (sumMap.get(key) ?? [0,0])[1]
-        }))
+          .map(key => {
+            const isAll = (sumMap.get(key) ?? [0,0])[0] === data.length;
+            if (!isAll && hadAll && last) {
+              return last;
+            }
+            if (isAll) {
+              hadAll = true;
+            }
+            last = ({
+              name: key,
+              value: (sumMap.get(key) ?? [0,0])[1]
+            });
+            return last;
+          })
       });
     }
 

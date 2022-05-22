@@ -7,7 +7,7 @@ import { LocalStorageService } from './local-storage.service';
 })
 export class CryptoPriceService extends AAphaVantagePriceService {
 
-  private static readonly CURRENCY = 'eur';
+  private static readonly CURRENCY = 'usd';
 
   constructor( localStorageService: LocalStorageService ) {
     super(localStorageService);
@@ -18,7 +18,7 @@ export class CryptoPriceService extends AAphaVantagePriceService {
       const daily = data['Time Series (Digital Currency Daily)'];
       const mappedPrices = Object.keys(daily).map(( key ) => ({
         date: new Date(key),
-        price: +(daily[key]['4a. close (EUR)'] || daily[key]['1a. open (EUR)'])
+        price: +(daily[key]['4b. close (USD)'] || daily[key]['1b. open (USD)'])
       }));
       this.localStorageService.set(this.getStorageKey(symbol), mappedPrices);
       return mappedPrices;
