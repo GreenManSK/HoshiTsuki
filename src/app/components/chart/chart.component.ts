@@ -59,7 +59,7 @@ export class ChartComponent implements OnInit {
   }
 
   private computeChart() {
-    if (!this._data || !this._valueFunction) {
+    if (!this._data || !this._valueFunction || this._data.size === 0) {
       return;
     }
     const sumMap = new Map<string, [number, number]>();
@@ -75,7 +75,7 @@ export class ChartComponent implements OnInit {
       const firstNonzeroIndex = series.findIndex(point => point.value !== 0);
       series.splice(0, firstNonzeroIndex);
       series.forEach(point => {
-        const [count, sum] = sumMap.get(point.name) ?? [0,0];
+        const [count, sum] = sumMap.get(point.name) ?? [0, 0];
         sumMap.set(point.name, [count + 1, sum + point.value]);
       })
       data.push({
@@ -89,7 +89,7 @@ export class ChartComponent implements OnInit {
       let hadAll = false;
       const total = Array.from(sumMap.keys())
         .map(key => {
-          const isAll = (sumMap.get(key) ?? [0,0])[0] === data.length;
+          const isAll = (sumMap.get(key) ?? [0, 0])[0] === data.length;
           if (!isAll && hadAll && last) {
             return last;
           }
@@ -98,7 +98,7 @@ export class ChartComponent implements OnInit {
           }
           last = ({
             name: key,
-            value: (sumMap.get(key) ?? [0,0])[1]
+            value: (sumMap.get(key) ?? [0, 0])[1]
           });
           return last;
         });
@@ -106,10 +106,12 @@ export class ChartComponent implements OnInit {
         name: 'Total',
         series: total
       });
-      this.lastDataPoint.emit(total[total.length - 1].value);
+      if (total.length)
+        this.lastDataPoint.emit(total[total.length - 1].value);
     } else {
       const lastSereis = (data.values().next().value.series);
-      this.lastDataPoint.emit(lastSereis[lastSereis.length - 1].value)
+      if (lastSereis.length)
+        this.lastDataPoint.emit(lastSereis[lastSereis.length - 1].value)
     }
 
     this.chartData = data;
