@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { DataPackage, FilteringDataService } from '../../filtering-data.service';
+import { FilteringDataService } from '../../filtering-data.service';
 import { first, Subscription } from 'rxjs';
 
 @Component({

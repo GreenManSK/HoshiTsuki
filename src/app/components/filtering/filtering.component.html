@@ -1,11 +1,14 @@
-<p>
-  <label for="is-monthly">Is monthly</label>
-  <input
-    id="is-monthly"
-    type="checkbox"
-    [(ngModel)]="isMonthly"
-    (change)="updateMonthly()">
-  <label for="from-date">From</label>
-  <input id="from-date" type="date" [valueAsDate]="start" (change)="updateStart($event)" />
-  <label for="to-date">To</label> <input id="to-date" type="date" [valueAsDate]="end" (change)="updateEnd($event)">
-</p>
+<mat-checkbox
+  [(ngModel)]="isMonthly"
+  (change)="updateMonthly()">Show only months
+</mat-checkbox>
+<br>
+<mat-form-field appearance="fill">
+  <mat-label>From</mat-label>
+  <input matInput type="date" [valueAsDate]="start" (change)="updateStart($event)">
+</mat-form-field>
+<br>
+<mat-form-field appearance="fill">
+  <mat-label>To</mat-label>
+  <input matInput type="date" [valueAsDate]="end" (change)="updateEnd($event)">
+</mat-form-field>

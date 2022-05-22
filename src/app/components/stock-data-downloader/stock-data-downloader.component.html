@@ -1,5 +1,6 @@
-<button (click)="reloadData($event)">Reload stock data</button>
-<p *ngIf="progress || done > 0">
-  {{progress ? 'Working...' : 'Done!'}}
-  {{done}} / {{all}}
-</p>
+<button mat-icon-button class="example-icon favorite-icon" aria-label="Sync prices" (click)="reloadData($event)">
+  <mat-icon>sync</mat-icon>
+  <ng-container *ngIf="progress">
+    {{done}} / {{all}}
+  </ng-container>
+</button>

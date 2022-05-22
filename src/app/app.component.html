@@ -1,94 +1,168 @@
-<sheet-uploader></sheet-uploader>
-<br>
-<stock-data-downloader></stock-data-downloader>
-<br>
-<filtering></filtering>
+<mat-toolbar color="primary">
+  <span>HoshiTsuki</span>
+  <span class="toolbar-spacer"></span>
+  <stock-data-downloader></stock-data-downloader>
+  <button mat-icon-button class="example-icon favorite-icon" aria-label="Refresh page" (click)="refresh()">
+    <mat-icon>refresh</mat-icon>
+  </button>
+</mat-toolbar>
 
-<h1>Investments</h1>
-<strong>Profit</strong>
-<chart
-  *ngIf="combinedData"
-  [data]="combinedData"
-  [valueFunction]="profitFunction"
-  [isMonthly]="isMonthly"
-></chart>
-
-<strong>Holdings</strong>
-<chart
-  *ngIf="combinedData"
-  [data]="combinedData"
-  [isMonthly]="isMonthly"
-></chart>
-
-<h1>Stocks</h1>
-<strong>Profit</strong>
-<chart
-  *ngIf="stockData"
-  [data]="stockData"
-  [valueFunction]="profitFunction"
-  [isMonthly]="isMonthly"
-></chart>
-
-<strong>Holdings</strong>
-<chart
-  *ngIf="stockData"
-  [data]="stockData"
-  [isMonthly]="isMonthly"
-></chart>
-
-<strong>Dividends</strong>
-<chart
-  *ngIf="stockDividendData"
-  [data]="stockDividendData"
-  [isMonthly]="isMonthly"
-  [valueFunction]="dividendFunction"
-></chart>
-
-<h1>Work</h1>
-<strong>Profit</strong>
-<chart
-  *ngIf="workData"
-  [data]="workData"
-  [valueFunction]="profitFunction"
-  [isMonthly]="isMonthly"
-></chart>
-
-<strong>Holdings</strong>
-<chart
-  *ngIf="workData"
-  [data]="workData"
-  [isMonthly]="isMonthly"
-></chart>
-
-<strong>Dividends</strong>
-<chart
-  *ngIf="workDividendData"
-  [data]="workDividendData"
-  [isMonthly]="isMonthly"
-  [valueFunction]="dividendFunction"
-></chart>
+<mat-card class="spacing">
+  <mat-card-title>Data form</mat-card-title>
+  <div class="inputs">
+    <div class="input">
+      <filtering></filtering>
+    </div>
+    <div class="input">
+      <sheet-uploader></sheet-uploader>
+    </div>
+  </div>
+</mat-card>
 
 
-<h1>Crypto</h1>
-<strong>Profit</strong>
-<chart
-  *ngIf="cryptoData"
-  [data]="cryptoData"
-  [valueFunction]="profitFunction"
-  [isMonthly]="isMonthly"
-></chart>
+<mat-card class="spacing">
+  <mat-card-title>Summary</mat-card-title>
+  <div class="charts">
+    <div class="chart">
+      <strong>Profit</strong>
+      <chart
+        *ngIf="combinedData"
+        [data]="combinedData"
+        [valueFunction]="profitFunction"
+        [isMonthly]="isMonthly"
+        scheme="cool"
+      ></chart>
+    </div>
+    <div class="chart">
+      <strong>Holdings</strong>
+      <chart
+        *ngIf="combinedData"
+        [data]="combinedData"
+        [isMonthly]="isMonthly"
+        [legend]="true"
+        scheme="cool"
+      ></chart>
+    </div>
+  </div>
+</mat-card>
 
-<strong>Holdings</strong>
-<chart
-  *ngIf="cryptoData"
-  [data]="cryptoData"
-  [isMonthly]="isMonthly"
-></chart>
+<mat-card class="spacing">
+  <mat-card-title>Stocks</mat-card-title>
+  <div class="charts">
+    <div class="chart">
+      <strong>Profit</strong>
+      <chart
+        *ngIf="stockData"
+        [data]="stockData"
+        [valueFunction]="profitFunction"
+        [isMonthly]="isMonthly"
+      ></chart>
+    </div>
+    <div class="chart">
+      <strong>Holdings</strong>
+      <chart
+        *ngIf="stockData"
+        [data]="stockData"
+        [isMonthly]="isMonthly"
+        [legend]="true"
+      ></chart>
+    </div>
+  </div>
+  <div class="charts">
+    <div class="chart">
+      <strong>Dividends</strong>
+      <chart
+        *ngIf="stockDividendData"
+        [data]="stockDividendData"
+        [isMonthly]="isMonthly"
+        [valueFunction]="dividendFunction"
+        [legend]="true"
+      ></chart>
+    </div>
+    <div class="chart">
 
-<strong>Staking</strong>
-<chart
-  *ngIf="cryptoStakingData"
-  [data]="cryptoStakingData"
-  [isMonthly]="isMonthly"
-  [valueFunction]="stakingFunction"
-></chart>
+    </div>
+  </div>
+</mat-card>
+
+<mat-card class="spacing">
+  <mat-card-title>Crypto</mat-card-title>
+  <div class="charts">
+    <div class="chart">
+      <strong>Profit</strong>
+      <chart
+        *ngIf="cryptoData"
+        [data]="cryptoData"
+        [valueFunction]="profitFunction"
+        [isMonthly]="isMonthly"
+        scheme="forest"
+      ></chart>
+    </div>
+    <div class="chart">
+      <strong>Holdings</strong>
+      <chart
+        *ngIf="cryptoData"
+        [data]="cryptoData"
+        [isMonthly]="isMonthly"
+        scheme="forest"
+        [legend]="true"
+      ></chart>
+    </div>
+  </div>
+  <div class="charts">
+    <div class="chart">
+      <strong>Staking</strong>
+      <chart
+        *ngIf="cryptoStakingData"
+        [data]="cryptoStakingData"
+        [isMonthly]="isMonthly"
+        [valueFunction]="stakingFunction"
+        scheme="forest"
+        [legend]="true"
+      ></chart>
+    </div>
+    <div class="chart"></div>
+  </div>
+</mat-card>
+
+
+<mat-card class="spacing">
+  <mat-card-title>Work stocks</mat-card-title>
+  <div class="charts">
+    <div class="chart">
+      <strong>Profit</strong>
+      <chart
+        *ngIf="workData"
+        [data]="workData"
+        [valueFunction]="profitFunction"
+        [isMonthly]="isMonthly"
+        scheme="air"
+      ></chart>
+    </div>
+    <div class="chart">
+      <strong>Holdings</strong>
+      <chart
+        *ngIf="workData"
+        [data]="workData"
+        [isMonthly]="isMonthly"
+        scheme="air"
+        [legend]="true"
+      ></chart>
+    </div>
+  </div>
+  <div class="charts">
+    <div class="chart">
+      <strong>Staking</strong>
+      <strong>Dividends</strong>
+      <chart
+        *ngIf="workDividendData"
+        [data]="workDividendData"
+        [isMonthly]="isMonthly"
+        [valueFunction]="dividendFunction"
+        scheme="air"
+        [legend]="true"
+      ></chart>
+    </div>
+    <div class="chart"></div>
+  </div>
+</mat-card>

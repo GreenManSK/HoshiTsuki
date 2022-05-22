@@ -1,6 +1,7 @@
 import { Component, Inject, Input, LOCALE_ID, OnInit } from '@angular/core';
 import { ChartDataBag } from '../../types/ChartDataBag';
 import { formatDate } from '@angular/common';
+import { LegendPosition } from '@swimlane/ngx-charts';
 
 type ChartPoint = { name: string, value: number };
 
@@ -19,7 +20,14 @@ export class ChartComponent implements OnInit {
   @Input()
   public showSum = true;
 
+  @Input()
+  public scheme: string = 'nightLights';
+
+  @Input()
+  public legend = false;
+
   public chartData: ChartLine[] = [];
+  public legendPostion: LegendPosition = LegendPosition.Below;
 
   private _isMonthly: boolean = false;
   private _data?: Map<string, ChartDataBag[]>;

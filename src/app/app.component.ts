@@ -123,4 +123,8 @@ export class AppComponent {
 
     this.combinedData = combinedData;
   }
+
+  public refresh() {
+    location.reload();
+  }
 }
