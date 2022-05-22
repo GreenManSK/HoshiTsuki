@@ -16,6 +16,9 @@ type ChartLine = {
 })
 export class ChartComponent implements OnInit {
 
+  @Input()
+  public showSum = true;
+
   public chartData: ChartLine[] = [];
 
   private _isMonthly: boolean = false;
@@ -51,6 +54,7 @@ export class ChartComponent implements OnInit {
     if (!this._data || !this._valueFunction) {
       return;
     }
+    const sumMap = new Map<string, [number, number]>();
     const data = [] as ChartLine[];
     for (const symbol of this._data.keys()) {
       const dataBags = this._data.get(symbol) || [];
@@ -62,11 +66,28 @@ export class ChartComponent implements OnInit {
         }));
       const firstNonzeroIndex = series.findIndex(point => point.value !== 0);
       series.splice(0, firstNonzeroIndex);
+      series.forEach(point => {
+        const [count, sum] = sumMap.get(point.name) ?? [0,0];
+        sumMap.set(point.name, [count + 1, sum + point.value]);
+      })
       data.push({
         name: symbol,
         series
       });
     }
+
+    if (this.showSum && this._data.size > 1) {
+      data.push({
+        name: 'Total',
+        series: Array.from(sumMap.keys())
+          .filter(key => (sumMap.get(key) ?? [0,0])[0] === data.length)
+          .map(key => ({
+          name: key,
+          value: (sumMap.get(key) ?? [0,0])[1]
+        }))
+      });
+    }
+
     this.chartData = data;
   }
 
