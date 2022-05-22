@@ -7,18 +7,22 @@ import { SheetUploaderComponent } from './components/sheet-uploader/sheet-upload
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StockDataDownloaderComponent } from './components/stock-data-downloader/stock-data-downloader.component';
+import { FilteringComponent } from './components/filtering/filtering.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     SheetUploaderComponent,
-    StockDataDownloaderComponent
+    StockDataDownloaderComponent,
+    FilteringComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgxChartsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

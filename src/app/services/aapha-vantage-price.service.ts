@@ -44,6 +44,12 @@ export abstract class AAphaVantagePriceService {
     });
   }
 
+  public getPrices( symbol: string ) {
+    const result = this.localStorageService.get<HistoryRecord[]>(this.getStorageKey(symbol), []);
+    result.forEach(r => r.date = new Date(r.date));
+    return result.reverse();
+  }
+
   protected abstract getStorageKey( symbol: string ): string;
 
   protected abstract loadPriceData( string: string ): Promise<HistoryRecord[]>;

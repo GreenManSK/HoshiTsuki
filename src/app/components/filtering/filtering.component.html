@@ -1,0 +1,11 @@
+<p *ngIf="data">
+  <label for="is-monthly">Is monthly</label>
+  <input
+    id="is-monthly"
+    type="checkbox"
+    [(ngModel)]="data.isMonthly"
+    (change)="updateMonthly()">
+  <label for="from-date">From</label>
+  <input id="from-date" type="date" [valueAsDate]="data.startDate" (change)="updateStart()" />
+  <label for="to-date">To</label> <input id="to-date" type="date" [valueAsDate]="data.endDate" (change)="updateEnd()">
+</p>

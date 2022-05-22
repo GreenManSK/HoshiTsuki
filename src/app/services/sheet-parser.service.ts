@@ -30,7 +30,7 @@ export class SheetParserService {
     for (let i = 3; sheet[`A${i}`] !== undefined && Number.isInteger(sheet[`A${i}`].v); i++) {
       investments.push(new Crypto(
         'BTC',
-        new Date(sheet[`A${i}`].w),
+        this.parseDate(sheet[`A${i}`].w),
         sheet[`B${i}`].v,
         sheet[`C${i}`].v,
         sheet[`E${i}`].v,
@@ -41,7 +41,7 @@ export class SheetParserService {
     for (let i = 3; sheet[`I${i}`] !== undefined && Number.isInteger(sheet[`I${i}`].v); i++) {
       investments.push(new Crypto(
         'ETH',
-        new Date(sheet[`I${i}`].w),
+        this.parseDate(sheet[`I${i}`].w),
         sheet[`J${i}`].v,
         sheet[`K${i}`].v,
         sheet[`M${i}`].v,
@@ -52,7 +52,7 @@ export class SheetParserService {
     for (let i = 3; sheet[`Q${i}`] !== undefined && Number.isInteger(sheet[`Q${i}`].v); i++) {
       stakings.push(new CryptoStaking(
         'ETH',
-        new Date(sheet[`Q${i}`].w),
+        this.parseDate(sheet[`Q${i}`].w),
         sheet[`R${i}`].v,
       ));
     }
@@ -72,7 +72,7 @@ export class SheetParserService {
     for (; sheet[`A${i}`] !== undefined && Number.isInteger(sheet[`A${i}`].v); i++) {
       investments.push(new Stock(
         sheet[`C${i}`].v,
-        new Date(sheet[`A${i}`].w),
+        this.parseDate(sheet[`A${i}`].w),
         sheet[`D${i}`].v,
         sheet[`F${i}`].v,
         sheet[`E${i}`].v,
@@ -85,7 +85,7 @@ export class SheetParserService {
     for (; sheet[`A${i}`] !== undefined && Number.isInteger(sheet[`A${i}`].v); i++) {
       dividends.push(new Dividend(
         sheet[`C${i}`].v,
-        new Date(sheet[`A${i}`].w),
+        this.parseDate(sheet[`A${i}`].w),
         sheet[`F${i}`].v,
         sheet[`E${i}`].v,
         sheet[`D${i}`].v,
@@ -107,7 +107,7 @@ export class SheetParserService {
     for (; sheet[`A${i}`] !== undefined && Number.isInteger(sheet[`A${i}`].v); i++) {
       investments.push(new WorkStock(
         sheet[`C${i}`].v,
-        new Date(sheet[`A${i}`].w),
+        this.parseDate(sheet[`A${i}`].w),
         sheet[`D${i}`].v,
         0,
         0,
@@ -122,13 +122,24 @@ export class SheetParserService {
     for (; sheet[`A${i}`] !== undefined && Number.isInteger(sheet[`A${i}`].v); i++) {
       dividends.push(new Dividend(
         sheet[`C${i}`].v,
-        new Date(sheet[`A${i}`].w),
+        this.parseDate(sheet[`A${i}`].w),
         sheet[`F${i}`].v,
         sheet[`E${i}`].v,
         sheet[`D${i}`].v,
       ));
     }
-
     return {investments, dividends};
+  }
+
+  private parseDate( stringDate: string ) {
+    let date: Date;
+    if (stringDate.includes('.')) {
+      const parts = stringDate.split('.');
+      date = new Date(+parts[2], +parts[1] - 1, +parts[0]);
+    } else {
+      const parts = stringDate.split('/');
+      date = new Date(2000 + +parts[2], +parts[0] - 1, +parts[1]);
+    }
+    return date;
   }
 }

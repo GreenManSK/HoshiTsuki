@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { multi } from './data';
+import { DataService } from './services/data.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,7 @@ export class AppComponent {
 
   title = 'HoshiTsuki';
 
-  constructor() {
+  constructor(dataService: DataService) {
     this.multi = multi;
   }
 }
