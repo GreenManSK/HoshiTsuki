@@ -103,7 +103,6 @@ export class DataService {
   public getWorkStockDividendChartDataBags( start: Date, end: Date ) {
     const {dividends} = this.getWorkStocks();
     const investments = dividends.map(dividend => new Stock(dividend.name, dividend.date, dividend.amount, dividend.tax, dividend.taxCzk))
-    console.log(dividends, investments);
     return this.getDataBags(investments, start, end, ( symbol: string ) => this.stockPriceService.getPrices(symbol));
   }
 
@@ -133,7 +132,7 @@ export class DataService {
         let newBuyPrice = 0;
         for (; pivot < currentInvestments.length && currentInvestments[pivot].date <= price.date; pivot++) {
           newVolume = currentInvestments[pivot].volume;
-          newBuyPrice = currentInvestments[pivot].buyPrice || currentInvestments[pivot].price || currentInvestments[pivot].tax;
+          newBuyPrice = currentInvestments[pivot].buyPrice || currentInvestments[pivot].price || currentInvestments[pivot].tax || 0;
         }
         lastBag = {
           date: price.date,

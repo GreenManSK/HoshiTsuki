@@ -9,13 +9,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StockDataDownloaderComponent } from './components/stock-data-downloader/stock-data-downloader.component';
 import { FilteringComponent } from './components/filtering/filtering.component';
 import { FormsModule } from '@angular/forms';
+import { ChartComponent } from './components/chart/chart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SheetUploaderComponent,
     StockDataDownloaderComponent,
-    FilteringComponent
+    FilteringComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,

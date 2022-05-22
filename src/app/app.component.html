@@ -4,18 +4,91 @@
 <br>
 <filtering></filtering>
 
-<ngx-charts-line-chart
-  [results]="multi"
-  [xAxis]="showXAxis"
-  [yAxis]="showYAxis"
-  [xAxisLabel]="xAxisLabel"
-  [yAxisLabel]="yAxisLabel"
-  [showXAxisLabel]="true"
-  [showYAxisLabel]="true"
-  [view]="view"
-  [legend]="true"
-  [timeline]="true"
-  [scheme]="'nightLights'"
-  [animations]="true"
->
-</ngx-charts-line-chart>
+<h1>Investments</h1>
+<strong>Profit</strong>
+<chart
+  *ngIf="combinedData"
+  [data]="combinedData"
+  [valueFunction]="profitFunction"
+  [isMonthly]="isMonthly"
+></chart>
+
+<strong>Holdings</strong>
+<chart
+  *ngIf="combinedData"
+  [data]="combinedData"
+  [isMonthly]="isMonthly"
+></chart>
+
+<h1>Stocks</h1>
+<strong>Profit</strong>
+<chart
+  *ngIf="stockData"
+  [data]="stockData"
+  [valueFunction]="profitFunction"
+  [isMonthly]="isMonthly"
+></chart>
+
+<strong>Holdings</strong>
+<chart
+  *ngIf="stockData"
+  [data]="stockData"
+  [isMonthly]="isMonthly"
+></chart>
+
+<strong>Dividends</strong>
+<chart
+  *ngIf="stockDividendData"
+  [data]="stockDividendData"
+  [isMonthly]="isMonthly"
+  [valueFunction]="dividendFunction"
+></chart>
+
+<h1>Work</h1>
+<strong>Profit</strong>
+<chart
+  *ngIf="workData"
+  [data]="workData"
+  [valueFunction]="profitFunction"
+  [isMonthly]="isMonthly"
+></chart>
+
+<strong>Holdings</strong>
+<chart
+  *ngIf="workData"
+  [data]="workData"
+  [isMonthly]="isMonthly"
+></chart>
+
+<strong>Dividends</strong>
+<chart
+  *ngIf="workDividendData"
+  [data]="workDividendData"
+  [isMonthly]="isMonthly"
+  [valueFunction]="dividendFunction"
+></chart>
+
+
+<h1>Crypto</h1>
+<strong>Profit</strong>
+<chart
+  *ngIf="cryptoData"
+  [data]="cryptoData"
+  [valueFunction]="profitFunction"
+  [isMonthly]="isMonthly"
+></chart>
+
+<strong>Holdings</strong>
+<chart
+  *ngIf="cryptoData"
+  [data]="cryptoData"
+  [isMonthly]="isMonthly"
+></chart>
+
+<strong>Staking</strong>
+<chart
+  *ngIf="cryptoStakingData"
+  [data]="cryptoStakingData"
+  [isMonthly]="isMonthly"
+  [valueFunction]="stakingFunction"
+></chart>

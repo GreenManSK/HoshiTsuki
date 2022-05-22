@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DataPackage, FilteringDataService } from '../../filtering-data.service';
-import { Subscription } from 'rxjs';
+import { first, Subscription } from 'rxjs';
 
 @Component({
   selector: 'filtering',
@@ -8,7 +8,10 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./filtering.component.scss']
 })
 export class FilteringComponent implements OnInit, OnDestroy {
-  public data?: DataPackage;
+
+  public isMonthly = false;
+  public start = new Date();
+  public end = new Date();
 
   private subscription: Subscription | undefined;
 
@@ -16,8 +19,10 @@ export class FilteringComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscription = this.filteringData.asObservable().subscribe(( data ) => {
-      this.data = data;
+    this.subscription = this.filteringData.asObservable().pipe(first()).subscribe(( data ) => {
+      this.isMonthly = data.isMonthly;
+      this.start = data.startDate;
+      this.end = data.endDate;
     });
   }
 
@@ -26,14 +31,14 @@ export class FilteringComponent implements OnInit, OnDestroy {
   }
 
   public updateMonthly() {
-    this.filteringData.setIsMonthly(this.data?.isMonthly || true);
+    this.filteringData.setIsMonthly(this.isMonthly);
   }
 
-  public updateStart() {
-    this.filteringData.setStartDate(this.data?.startDate || new Date());
+  public updateStart(event: any) {
+    this.filteringData.setStartDate(new Date(event.target.value));
   }
 
-  public updateEnd() {
-    this.filteringData.setEndDate(this.data?.endDate || new Date());
+  public updateEnd(event: any) {
+    this.filteringData.setEndDate(new Date(event.target.value));
   }
 }
