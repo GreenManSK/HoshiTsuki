@@ -30,8 +30,18 @@
         [data]="combinedData"
         [valueFunction]="profitFunction"
         [isMonthly]="isMonthly"
+        (lastDataPoint)="setSummaryGood($event)"
+        [legend]="true"
         scheme="cool"
       ></chart>
+    </div>
+    <div class="chart">
+      <div [class]="summaryImageClass1"></div>
+    </div>
+  </div>
+  <div class="charts">
+    <div class="chart">
+      <div [class]="summaryImageClass2"></div>
     </div>
     <div class="chart">
       <strong>Holdings</strong>
@@ -56,6 +66,7 @@
         [data]="stockData"
         [valueFunction]="profitFunction"
         [isMonthly]="isMonthly"
+        (lastDataPoint)="setStockGood($event)"
       ></chart>
     </div>
     <div class="chart">
@@ -80,7 +91,7 @@
       ></chart>
     </div>
     <div class="chart">
-
+      <div [class]="stockImageClass"></div>
     </div>
   </div>
 </mat-card>
@@ -89,6 +100,9 @@
   <mat-card-title>Crypto</mat-card-title>
   <div class="charts">
     <div class="chart">
+      <div [class]="cryptoImageClass"></div>
+    </div>
+    <div class="chart">
       <strong>Profit</strong>
       <chart
         *ngIf="cryptoData"
@@ -96,8 +110,12 @@
         [valueFunction]="profitFunction"
         [isMonthly]="isMonthly"
         scheme="forest"
+        (lastDataPoint)="setCryptoGood($event)"
+        [legend]="true"
       ></chart>
     </div>
+  </div>
+  <div class="charts">
     <div class="chart">
       <strong>Holdings</strong>
       <chart
@@ -108,8 +126,6 @@
         [legend]="true"
       ></chart>
     </div>
-  </div>
-  <div class="charts">
     <div class="chart">
       <strong>Staking</strong>
       <chart
@@ -121,7 +137,6 @@
         [legend]="true"
       ></chart>
     </div>
-    <div class="chart"></div>
   </div>
 </mat-card>
 
@@ -137,8 +152,14 @@
         [valueFunction]="profitFunction"
         [isMonthly]="isMonthly"
         scheme="air"
+        (lastDataPoint)="setWorkGood($event)"
       ></chart>
     </div>
+    <div class="chart">
+      <div [class]="workImageClass"></div>
+    </div>
+  </div>
+  <div class="charts">
     <div class="chart">
       <strong>Holdings</strong>
       <chart
@@ -149,8 +170,6 @@
         [legend]="true"
       ></chart>
     </div>
-  </div>
-  <div class="charts">
     <div class="chart">
       <strong>Staking</strong>
       <strong>Dividends</strong>
@@ -163,6 +182,5 @@
         [legend]="true"
       ></chart>
     </div>
-    <div class="chart"></div>
   </div>
 </mat-card>

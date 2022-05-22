@@ -22,12 +22,23 @@ export class AppComponent {
 
   public combinedData?: Map<string, ChartDataBag[]>;
 
-  public profitFunction = (bag: ChartDataBag) => bag.volume * bag.unitPrice - bag.buyPrice;
-  public dividendFunction = (bag: ChartDataBag) => bag.volume - bag.buyPrice;
-  public stakingFunction = (bag: ChartDataBag) => bag.volume * bag.unitPrice - bag.buyPrice;
+  public profitFunction = ( bag: ChartDataBag ) => bag.volume * bag.unitPrice - bag.buyPrice;
+  public dividendFunction = ( bag: ChartDataBag ) => bag.volume - bag.buyPrice;
+  public stakingFunction = ( bag: ChartDataBag ) => bag.volume * bag.unitPrice - bag.buyPrice;
   public isMonthly = false;
 
-  constructor(private dataService: DataService, private filteringDataService: FilteringDataService) {
+  private isSummaryProfitGood = false;
+  private isStockProfitGood = false;
+  private isCryptoProfitGood = false;
+  private isWorkProfitGood = false;
+
+  public summaryImageClass1 = '';
+  public summaryImageClass2 = '';
+  public stockImageClass = '';
+  public cryptoImageClass = '';
+  public workImageClass = '';
+
+  constructor( private dataService: DataService, private filteringDataService: FilteringDataService ) {
     filteringDataService.asObservable().subscribe(data => {
       this.isMonthly = data.isMonthly;
       this.createData(data.startDate, data.endDate);
@@ -71,7 +82,7 @@ export class AppComponent {
       }
       cryptoData.push(baseBag);
     }
-    combinedData.set("Crypto", cryptoData);
+    combinedData.set('Crypto', cryptoData);
 
     // work
     const workData = [] as ChartDataBag[];
@@ -95,7 +106,7 @@ export class AppComponent {
       }
       workData.push(baseBag);
     }
-    combinedData.set("Work", workData);
+    combinedData.set('Work', workData);
 
     // stock
     const stockData = [] as ChartDataBag[];
@@ -119,12 +130,49 @@ export class AppComponent {
       }
       stockData.push(baseBag);
     }
-    combinedData.set("Stock", stockData);
+    combinedData.set('Stock', stockData);
 
     this.combinedData = combinedData;
   }
 
   public refresh() {
     location.reload();
+  }
+
+  public setSummaryGood( data: number ) {
+    this.isSummaryProfitGood = data > 0;
+    this.setImageClasses();
+  }
+
+  public setStockGood( data: number ) {
+    this.isStockProfitGood = data > 0;
+    this.setImageClasses();
+  }
+
+  public setCryptoGood( data: number ) {
+    this.isCryptoProfitGood = data > 0;
+    this.setImageClasses();
+  }
+
+  public setWorkGood( data: number ) {
+    this.isWorkProfitGood = data > 0;
+    this.setImageClasses();
+  }
+
+  public setImageClasses() {
+    const happy = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+    happy.sort(() => Math.random() > 0.5 ? 1 : -1);
+    const sad = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    sad.sort(() => Math.random() > 0.5 ? 1 : -1);
+
+    this.summaryImageClass1 = this.getImageClass(this.isSummaryProfitGood, happy, sad);
+    this.summaryImageClass2 = this.getImageClass(this.isSummaryProfitGood, happy, sad);
+    this.stockImageClass = this.getImageClass(this.isStockProfitGood, happy, sad);
+    this.cryptoImageClass = this.getImageClass(this.isCryptoProfitGood, happy, sad);
+    this.workImageClass = this.getImageClass(this.isWorkProfitGood, happy, sad);
+  }
+
+  private getImageClass( isHappy: boolean, happy: number[], sad: number[] ) {
+    return `image ${isHappy ? 'happy' : 'sad'} i${(isHappy ? happy : sad).pop()}`;
   }
 }

@@ -17,11 +17,90 @@
 
 .charts {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-around;
   .chart {
     text-align: center;
     width: 100%;
     margin: .5rem;
+  }
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  background-repeat:  no-repeat;
+  background-position: center center;
+
+  &.sad {
+    &.i1 {
+      background-image: url("/assets/sad/1.jpg");
+    }
+    &.i2 {
+      background-image: url("/assets/sad/2.jpg");
+    }
+    &.i3 {
+      background-image: url("/assets/sad/3.jpg");
+    }
+    &.i4 {
+      background-image: url("/assets/sad/4.jpg");
+    }
+    &.i5 {
+      background-image: url("/assets/sad/5.jpg");
+    }
+    &.i6 {
+      background-image: url("/assets/sad/6.jpg");
+    }
+    &.i7 {
+      background-image: url("/assets/sad/7.jpg");
+    }
+    &.i8 {
+      background-image: url("/assets/sad/8.jpg");
+    }
+    &.i9 {
+      background-image: url("/assets/sad/9.jpg");
+    }
+    &.i10 {
+      background-image: url("/assets/sad/10.jpg");
+    }
+  }
+
+  &.happy {
+    &.i1 {
+      background-image: url("/assets/happy/1.jpg");
+    }
+    &.i2 {
+      background-image: url("/assets/happy/2.jpg");
+    }
+    &.i3 {
+      background-image: url("/assets/happy/3.jpg");
+    }
+    &.i4 {
+      background-image: url("/assets/happy/4.jpg");
+    }
+    &.i5 {
+      background-image: url("/assets/happy/5.jpg");
+    }
+    &.i6 {
+      background-image: url("/assets/happy/6.jpg");
+    }
+    &.i7 {
+      background-image: url("/assets/happy/7.jpg");
+    }
+    &.i8 {
+      background-image: url("/assets/happy/8.jpg");
+    }
+    &.i9 {
+      background-image: url("/assets/happy/9.jpg");
+    }
+    &.i10 {
+      background-image: url("/assets/happy/10.jpg");
+    }
+    &.i11 {
+      background-image: url("/assets/happy/11.jpg");
+    }
+    &.i12 {
+      background-image: url("/assets/happy/12.jpg");
+    }
   }
 }

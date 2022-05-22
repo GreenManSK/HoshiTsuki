@@ -1,7 +1,6 @@
-import { Component, Inject, Input, LOCALE_ID, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, LOCALE_ID, OnInit, Output } from '@angular/core';
 import { ChartDataBag } from '../../types/ChartDataBag';
 import { formatDate } from '@angular/common';
-import { LegendPosition } from '@swimlane/ngx-charts';
 
 type ChartPoint = { name: string, value: number };
 
@@ -26,13 +25,14 @@ export class ChartComponent implements OnInit {
   @Input()
   public legend = false;
 
+  @Output()
+  public lastDataPoint = new EventEmitter<number>();
+
   public chartData: ChartLine[] = [];
-  public legendPostion: LegendPosition = LegendPosition.Below;
 
   private _isMonthly: boolean = false;
   private _data?: Map<string, ChartDataBag[]>;
   private _valueFunction: ( bag: ChartDataBag ) => number = ( bag ) => bag.volume * bag.unitPrice;
-  view: [number, number] = [700, 400];
 
   constructor( @Inject(LOCALE_ID) public locale: string ) {
   }
@@ -87,24 +87,29 @@ export class ChartComponent implements OnInit {
     if (this.showSum && this._data.size > 1) {
       let last: any;
       let hadAll = false;
+      const total = Array.from(sumMap.keys())
+        .map(key => {
+          const isAll = (sumMap.get(key) ?? [0,0])[0] === data.length;
+          if (!isAll && hadAll && last) {
+            return last;
+          }
+          if (isAll) {
+            hadAll = true;
+          }
+          last = ({
+            name: key,
+            value: (sumMap.get(key) ?? [0,0])[1]
+          });
+          return last;
+        });
       data.push({
         name: 'Total',
-        series: Array.from(sumMap.keys())
-          .map(key => {
-            const isAll = (sumMap.get(key) ?? [0,0])[0] === data.length;
-            if (!isAll && hadAll && last) {
-              return last;
-            }
-            if (isAll) {
-              hadAll = true;
-            }
-            last = ({
-              name: key,
-              value: (sumMap.get(key) ?? [0,0])[1]
-            });
-            return last;
-          })
+        series: total
       });
+      this.lastDataPoint.emit(total[total.length - 1].value);
+    } else {
+      const lastSereis = (data.values().next().value.series);
+      this.lastDataPoint.emit(lastSereis[lastSereis.length - 1].value)
     }
 
     this.chartData = data;
