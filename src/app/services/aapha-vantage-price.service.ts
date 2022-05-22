@@ -29,6 +29,7 @@ export abstract class AAphaVantagePriceService {
         this.loadPriceData(symbols[current]).then(() => {
           current++;
           if (current === symbols.length) {
+            onProgress(current);
             resolve();
             return;
           }

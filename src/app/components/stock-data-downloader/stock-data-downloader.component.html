@@ -1,0 +1,5 @@
+<button (click)="reloadData($event)">Reload stock data</button>
+<p *ngIf="progress || done > 0">
+  {{progress ? 'Working...' : 'Done!'}}
+  {{done}} / {{all}}
+</p>

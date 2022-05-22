@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { SheetUploaderComponent } from './components/sheet-uploader/sheet-uploader.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StockDataDownloaderComponent } from './components/stock-data-downloader/stock-data-downloader.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SheetUploaderComponent
+    SheetUploaderComponent,
+    StockDataDownloaderComponent
   ],
   imports: [
     BrowserModule,
