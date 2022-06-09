@@ -35,7 +35,10 @@ export class StockDataDownloaderComponent implements OnInit {
     this.currencyService.loadRate('eur').then(() => {
       this.stockPriceService.loadPrices(stocks, ( done ) => this.done = done).then(() => {
         this.cryptoPriceService.loadPrices(crypto, ( done ) => this.done = done + stocks.length)
-          .then(() => this.progress = false);
+          .then(() => {
+            this.progress = false;
+            location.reload();
+          });
       });
     });
   }
