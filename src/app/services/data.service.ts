@@ -122,7 +122,7 @@ export class DataService {
       const bags = [] as ChartDataBag[];
       // @ts-ignore
       const currentInvestments = investments.filter(c => c.name === symbol && c.date <= end).sort(( a, b ) => a.date <= b.date ? -1 : 1);
-      const prices = getPrices(symbol).filter(p => start <= p.date && p.date <= end);
+      const prices = getPrices(symbol); //.filter(p => start <= p.date && p.date <= end);
 
       let pivot = 0;
       let lastBag = {
@@ -146,8 +146,8 @@ export class DataService {
         };
         bags.push(lastBag);
       }
-
-      result.set(symbol, bags);
+      const filtereBags = bags.filter(p => start <= p.date && p.date <= end);
+      result.set(symbol, filtereBags);
     });
     return result;
   }
