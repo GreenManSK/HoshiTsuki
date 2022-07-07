@@ -121,6 +121,9 @@ export class AppComponent {
         buyPrice: 0
       };
       for (let j = 0; j < stockValues.length; j++) {
+        if (!stockValues[j][i]) {
+          continue;
+        }
         baseBag.volume += stockValues[j][i].volume * stockValues[j][i].unitPrice;
         baseBag.buyPrice += stockValues[j][i].buyPrice;
       }
